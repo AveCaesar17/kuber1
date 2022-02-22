@@ -1,0 +1,4 @@
+resources:
+- ../templates
+- deployment.yaml
+- namespace.yaml
