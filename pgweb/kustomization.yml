@@ -1,5 +1,0 @@
-
----
-resources:
-- pgweb-deployment.yaml
-- pgweb-service.yaml
