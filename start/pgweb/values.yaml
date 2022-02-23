@@ -1,0 +1,6 @@
+op: replace
+path: /data
+value:
+  login: qwerty
+  password: 12345
+  
