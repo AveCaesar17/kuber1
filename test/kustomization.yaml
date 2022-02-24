@@ -9,4 +9,4 @@ helmCharts:
     releaseName: test1
     version: 11.0.8
     repo: https://charts.bitnami.com/bitnami
-    valuesFile: values.yaml
+    #valuesFile: values.yaml
