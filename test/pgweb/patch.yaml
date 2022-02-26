@@ -1,0 +1,3 @@
+[
+  {"op": "add", "path": "/spec/template/spec/containers/0/command", "value": ["pgweb","--host=yvtokan-test-postgresql","--port=5432","--user=admin","--pass=admin","--db=mydb","--ssl=disable","--listen=8082","|","echo"]}
+]
