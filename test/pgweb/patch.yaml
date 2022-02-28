@@ -1,3 +1,5 @@
 [
-  {"op": "add", "path": "/spec/template/spec/containers/0/command", "value": ["pgweb","--host=yvtokan-test-postgresql","--port=5432","--user=admin","--pass=admin","--db=mydb","--ssl=disable","--listen=8082","|","echo"]}
+  {"op": "add", "path": "/spec/template/spec/containers/0/command", "value": ["pgweb","--host=yvtokan-test-postgresql","--port=5432","--user=admin","--pass=admin","--db=mydb","--ssl=disable","--listen=8082"]},
+  {"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"},
+  {"op": "remove", "path": "/spec/template/spec/containers/0/readinessProbe"}
 ]

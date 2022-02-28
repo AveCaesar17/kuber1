@@ -7,9 +7,10 @@ helmCharts:
     version: 0.0.8
     repo: https://slamdev.github.io/helm-charts
     valuesFile: ./values_postgresql.yaml
-# patches:
-# - path: patch.yaml
-#  # path: patch_port.yaml
-#   target:
-#     kind: Deployment 
+
+patches:
+- path: patch.yaml
+ 
+  target:
+    kind: Deployment 
      

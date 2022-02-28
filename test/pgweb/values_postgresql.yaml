@@ -2,92 +2,66 @@
 ## Please, note that this will override the parameters, including dependencies, configured to use the global value
 ##
 global:
-  ## @param global.imageRegistry Global Docker image registry
-  ##
-  imageRegistry: ""
-  ## @param global.imagePullSecrets Global Docker registry secret names as an array
-  ## e.g.
-  ## imagePullSecrets:
-  ##   - myRegistryKeySecretName
-  ##
-  imagePullSecrets: []
-  ## @param global.storageClass Global StorageClass for Persistent Volume(s)
-  ##
-  storageClass: ""
-  postgresql:
-    ## @param global.postgresql.auth.postgresPassword Password for the "postgres" admin user (overrides `auth.postgresPassword`)
-    ## @param global.postgresql.auth.username Name for a custom user to create (overrides `auth.username`)
-    ## @param global.postgresql.auth.password Password for the custom user to create (overrides `auth.password`)
-    ## @param global.postgresql.auth.database Name for a custom database to create (overrides `auth.database`)
-    ## @param global.postgresql.auth.existingSecret Name of existing secret to use for PostgreSQL credentials (overrides `auth.existingSecret`)
-    ##
     auth:
-      postgresPassword: "admin"
-      username: "admin"
-      password: "admin"
-      database: "mydb"
+      postgresPassword: "{{ ../values_postgresql.global.auth.postgresPssword }}"
+      username:  "{{ ../values_postgresql.global.auth.username }}"
+      password:  "{{ ../values_postgresql.global.auth.password }}"
+      database:  "{{ ../values_postgresql.global.auth.postgresdatabase }}"
       existingSecret: ""
     ## @param global.postgresql.service.ports.postgresql PostgreSQL service port (overrides `service.ports.postgresql`)
     ##
-    service:
-      ports:
-        postgresql: ""
-
+    
 
 
 auth:
   ## @param auth.enablePostgresUser Assign a password to the "postgres" admin user. Otherwise, remote access will be blocked for this user
   ##
-  enablePostgresUser: true
+  enablePostgresUser:  "{{ ../values_postgresql.auth.enablePostgresUser }}"
   ## @param auth.postgresPassword Password for the "postgres" admin user
   ##
-  postgresPassword: "user"
+  postgresPassword:  "{{ ../values_postgresql.auth.postgresPassword }}"
   ## @param auth.username Name for a custom user to create
   ##
-  username: "user"
+  username: "{{ ../values_postgresql.auth.username }}"
   ## @param auth.password Password for the custom user to create
   ##
-  password: "user"
+  password:  "{{ ../values_postgresql.auth.password }}"
   ## @param auth.database Name for a custom database to create
   ##
-  database: "userdb"
+  database:  "{{ ../values_postgresql.auth.database }}"
   ## @param auth.replicationUsername Name of the replication user
   ##
-  replicationUsername: repl_user
+  replicationUsername:  "{{ ../values_postgresql.auth.replicationUsername }}"
   ## @param auth.replicationPassword Password for the replication user
   ##
-  replicationPassword: "admin"
+  replicationPassword: "{{ ../values_postgresql.auth.replicationPassword }}"
   ## @param auth.existingSecret Name of existing secret to use for PostgreSQL credentials
  
 ##
 containerPorts:
-  postgresql: 5432
+  postgresql: "{{ ../values_postgresql.containerPorts.postgresql }}"
 
 
   ##
   service:
     ## @param primary.service.type Kubernetes Service type
     ##
-    type: ClusterIP
+    type: "{{ ../values_postgresql.containerPorts.service.type }}"
     ## @param primary.service.ports.postgresql PostgreSQL service port
     ##
     ports:
-      postgresql: 5432
+      postgresql: "{{ ../values_postgresql.containerPorts.service.ports.postgresql }}"
     ## Node ports to expose
     ## NOTE: choose port between <30000-32767>
     ## @param primary.service.nodePorts.postgresql Node port for PostgreSQL
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
     ##
-    nodePorts:
-      postgresql: ""
-    ## @param primary.service.clusterIP Static clusterIP or None for headless services
- 
   service:
     ## @param readReplicas.service.type Kubernetes Service type
     ##
-    type: ClusterIP
+    type: "{{ ../values_postgresql.containerPorts.service.type }}"
     ## @param readReplicas.service.ports.postgresql PostgreSQL service port
     ##
     ports:
-      postgresql: 5432
-    
+      postgresql: "{{ ../values_postgresql.containerPorts.service.ports.postgresql }}"
+data: ["pgweb","--host=yvtokan-test-postgresql","--port=5432","--user=admin","--pass=admin","--db=mydb","--ssl=disable","--listen=8082","|","echo"]
